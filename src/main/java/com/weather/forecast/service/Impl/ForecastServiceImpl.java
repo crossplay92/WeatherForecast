@@ -5,14 +5,13 @@ import com.weather.forecast.model.response.ForecastResponse;
 import com.weather.forecast.model.response.HourlyForecastInformation;
 import com.weather.forecast.model.response.WeatherDataResponse;
 import com.weather.forecast.service.ForecastService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.Objects;
+import java.util.*;
 
 import static com.weather.forecast.utility.Constants.*;
 
@@ -20,8 +19,8 @@ import static com.weather.forecast.utility.Constants.*;
 /**
  * Here you will find the core methods implementation
  */
-// TODO: Add logs
 @Service
+@Slf4j
 public class ForecastServiceImpl implements ForecastService {
 
     @Value("${forecast.apikey}")
@@ -42,6 +41,7 @@ public class ForecastServiceImpl implements ForecastService {
 
     @Override
     public WeatherDataResponse retrieveForecast(String cityName) {
+        log.info("Retrieving forecast for {} city", cityName);
         WeatherDataResponse response;
 
         GeoCity geoCityData = findGeoCityData(cityName);
@@ -72,16 +72,19 @@ public class ForecastServiceImpl implements ForecastService {
     }
 
     /**
-     * Method used to retrieved city geodata given name
+     * Method used to retrieved city geo data given name
      *
-     * @param cityName
-     * @return
+     * @param cityName The input city name
+     * @return Geo Data of the given city
      */
-    // TODO: Manage error
     private GeoCity findGeoCityData(String cityName) {
         String uri = geoDataUrl.replace(CITY_PLACEHOLDER, cityName)
                 .replace(API_KEY_PLACEHOLDER, apiKey);
 
-        return Arrays.stream(Objects.requireNonNull(restTemplate.getForObject(uri, GeoCity[].class))).toList().getFirst();
+        List<GeoCity> list = Arrays.stream(Objects.requireNonNull(restTemplate.getForObject(uri, GeoCity[].class))).toList();
+        if (!list.isEmpty()) {
+            return list.getFirst();
+        }
+        throw new NoSuchElementException(String.format("Unable to retrieve %s city geo data", cityName));
     }
 }
