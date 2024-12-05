@@ -1,17 +1,19 @@
 package com.weather.forecast.model.response;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.*;
 
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Getter
+@Setter
 public class HourlyForecastInformation {
+
     private Long temp;
-    private Long feelsLike;
+    @JsonProperty("feels_like")
+    private Double feelsLike;
     private Long humidity;
+
 }
