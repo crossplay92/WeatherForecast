@@ -1,5 +1,6 @@
 package com.weather.forecast.controller.impl;
 
+import io.swagger.v3.oas.annotations.Hidden;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,7 @@ import java.util.NoSuchElementException;
 /**
  * This is the controller advice, it will be used for errors handling
  */
+@Hidden
 @ControllerAdvice
 @Slf4j
 public class ForecastControllerAdvice {
