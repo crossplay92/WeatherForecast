@@ -5,10 +5,13 @@ Application for Weather purposes
 The base project uses lombok
 In order to call the Api, it is necessary an ApiKey, I used mine, it is set in application.properties
 
-Use Java 21 and Maven 3.9.9 to build the project with the following command:
-mvn clean install
+Use Java 21 and Maven 3.9.9 to build and run the project with the following command:
+- mvn clean install
+- mvn package && java -jar target/forecast-1.0.0-SNAPSHOT.jar
 
-Use maven to run the application: mvnw spring-boot:run
+You can also use docker:
+- docker build -t forecast/weather-app .
+- docker run -p 9002:9002 forecast/weather-app
 
 Test with postman, there is a collection in src / main / resources / postman
 

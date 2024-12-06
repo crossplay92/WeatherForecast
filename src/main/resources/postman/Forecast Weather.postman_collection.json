@@ -1,0 +1,47 @@
+{
+	"info": {
+		"_postman_id": "97134f35-7bb5-4d72-88da-a730b6354d64",
+		"name": "Forecast Weather",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "11963657"
+	},
+	"item": [
+		{
+			"name": "weatherForecast",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "username",
+						"value": "admin",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "password",
+						"value": "password",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://localhost:9002/weather/forecast/gggg",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9002",
+					"path": [
+						"weather",
+						"forecast",
+						"gggg"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
