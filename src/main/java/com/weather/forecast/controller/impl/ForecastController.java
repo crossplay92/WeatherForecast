@@ -1,8 +1,6 @@
 package com.weather.forecast.controller.impl;
 
-import com.weather.forecast.ForecastApplication;
 import com.weather.forecast.controller.ForecastProvider;
-import com.weather.forecast.model.response.ForecastResponse;
 import com.weather.forecast.model.response.WeatherDataResponse;
 import com.weather.forecast.service.ForecastService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Objects;
 
 /**
  * This is the Controller, here you will find all the implementation of the exposed API
@@ -31,6 +31,10 @@ public class ForecastController implements ForecastProvider {
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity<WeatherDataResponse> retrieveForecast(@PathVariable("cityName") String cityName) {
-        return ResponseEntity.status(HttpStatus.OK).body(forecastService.retrieveForecast(cityName));
+        WeatherDataResponse forecastResponse = forecastService.retrieveForecast(cityName);
+        
+        return (Objects.nonNull(forecastResponse))
+                ? ResponseEntity.status(HttpStatus.OK).body(forecastResponse)
+                : ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 }

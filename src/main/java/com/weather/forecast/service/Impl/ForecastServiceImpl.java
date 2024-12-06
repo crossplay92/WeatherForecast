@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.*;
@@ -42,7 +43,7 @@ public class ForecastServiceImpl implements ForecastService {
     @Override
     public WeatherDataResponse retrieveForecast(String cityName) {
         log.info("Retrieving forecast for {} city", cityName);
-        WeatherDataResponse response;
+        WeatherDataResponse response = null;
 
         GeoCity geoCityData = findGeoCityData(cityName);
 
@@ -51,7 +52,7 @@ public class ForecastServiceImpl implements ForecastService {
                 .replace(API_KEY_PLACEHOLDER, apiKey);
 
         ForecastResponse information = restTemplate.getForObject(uri, ForecastResponse.class);
-        if (information != null && information.getHourly() != null) {
+        if (Objects.nonNull(information) && !CollectionUtils.isEmpty(information.getHourly())) {
 
             response = WeatherDataResponse.builder()
                     .maximum(information.getHourly().stream()
@@ -64,10 +65,7 @@ public class ForecastServiceImpl implements ForecastService {
                             .map(HourlyForecastInformation::getHumidity)
                             .toList())
                     .build();
-        } else {
-            response = WeatherDataResponse.builder().build();
         }
-
         return response;
     }
 

@@ -31,4 +31,12 @@ public class ForecastControllerAdvice {
                 ex.getMessage()),
                 HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(value = {Exception.class})
+    public ResponseEntity<String> handleException(Exception ex) {
+        log.error("Exception: {}", ex.getMessage());
+        return new ResponseEntity<>(String.format("Exception retrieving forecast data, error: %s",
+                ex.getMessage()),
+                HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 }
