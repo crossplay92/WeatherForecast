@@ -1,4 +1,5 @@
 # WeatherForecast
+
 Application for Weather purposes
 
 The base project uses lombok
@@ -7,7 +8,7 @@ In order to call the Api, it is necessary an ApiKey, I used mine, it is set in a
 Use Java 21 and Maven 3.9.9 to build the project with the following command:
 mvn clean install
 
-Use maven  to run the application: mvnw spring-boot:run 
+Use maven to run the application: mvnw spring-boot:run
 
 Test with postman, there is a collection in src / main / resources / postman
 

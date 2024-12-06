@@ -1,20 +1,17 @@
 package com.weather.forecast.controller.impl;
 
 import com.weather.forecast.controller.ForecastProvider;
-import com.weather.forecast.model.response.ForecastResponse;
 import com.weather.forecast.model.response.WeatherDataResponse;
 import com.weather.forecast.service.ForecastService;
-import com.weather.forecast.service.Impl.ForecastServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.util.ReflectionTestUtils;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
