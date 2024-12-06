@@ -10,6 +10,7 @@ Use Java 21 and Maven 3.9.9 to build and run the project with the following comm
 - mvn package && java -jar target/forecast-1.0.0-SNAPSHOT.jar
 
 You can also use docker:
+- mvn clean install
 - docker build -t forecast/weather-app .
 - docker run -p 9002:9002 forecast/weather-app
 
